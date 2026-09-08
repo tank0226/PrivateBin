@@ -5,6 +5,8 @@
 * CHANGED: Removed the unmaintained js-verify and replaced it with fast-check library.
 * CHANGED: Added a `jsconfig.json` in order to check the types of JavaScript.
 * CHANGED: Removed support for Bootstrap 3 as it requires jQuery.
+* FIXED: Prevent browsers guessing MIME types on JSON(LD) API responses (#164)
+* FIXED: Insert quoted base path into JSON-LD documents
 
 ## 2.0.6 (2026-08-08)
 * CHANGED: Stricter MIME type validation, divergent files get no preview and forced download link

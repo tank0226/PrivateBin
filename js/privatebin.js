@@ -4364,15 +4364,17 @@ window.PrivateBin = (function () {
          * @name   TopNav.showEmailbutton
          * @function
          * @param {number|undefined} optionalRemainingTimeInSeconds
+         * @param {bool|undefined} optionalBurnAfterReading
          */
-        me.showEmailButton = function (optionalRemainingTimeInSeconds) {
+        me.showEmailButton = function (optionalRemainingTimeInSeconds, optionalBurnAfterReading) {
             try {
                 // we cache expiration date in closure to avoid inaccurate expiration datetime
                 const expirationDate = Helper.calculateExpirationDate(
                     new Date(),
                     typeof optionalRemainingTimeInSeconds === 'number' ? optionalRemainingTimeInSeconds : TopNav.getExpiration()
                 );
-                const isBurnafterreading = TopNav.getBurnAfterReading();
+                const isBurnafterreading = typeof optionalBurnAfterReading === 'boolean' ?
+                    optionalBurnAfterReading : TopNav.getBurnAfterReading();
 
                 emailLink.classList.remove('hidden');
                 emailLink.removeEventListener('click', sendEmail);
@@ -5579,7 +5581,10 @@ window.PrivateBin = (function () {
                         TopNav.hideBurnAfterReadingButtons();
                     } else {
                         // we have to pass in remaining_time here
-                        TopNav.showEmailButton(paste.getTimeToLive());
+                        TopNav.showEmailButton(
+                            paste.getTimeToLive(),
+                            paste.isBurnAfterReadingEnabled()
+                        );
                     }
 
                     // only offer adding comments, after document was successfully decrypted
