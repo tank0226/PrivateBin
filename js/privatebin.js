@@ -2964,7 +2964,7 @@ window.PrivateBin = (function () {
         me.isSafeMimeType = function(mimeType) {
             return ((
                     mimeType.startsWith('image/') &&
-                    !mimeType.includes('svg')
+                    !/svg/i.test(mimeType)
                 ) ||
                 mimeType.startsWith('video/') ||
                 mimeType.startsWith('audio/') ||
@@ -2972,27 +2972,6 @@ window.PrivateBin = (function () {
                 mimeType === 'text/plain') &&
                 // don't accept comments, stray characters, spaces, etc.
                 /^[a-z0-9][a-z0-9.-]*[a-z0-9]\/[a-z0-9][a-z0-9.+-]*[a-z0-9]$/.test(mimeType);
-        };
-
-        /**
-         * Evaluates whether this is known a safe mime type.
-         *
-         * This means, the media can safely be displayed and e.g. no XSS should be possible.
-         *
-         * @name AttachmentViewer.isSafeMimeType
-         * @function
-         * @param {string}
-         * @returns {bool}
-         */
-        me.isSafeMimeType = function(mimeType) {
-            return (
-                    mimeType.startsWith('image/') &&
-                    !mimeType.includes('svg')
-                ) ||
-                mimeType.startsWith('video/') ||
-                mimeType.startsWith('audio/') ||
-                mimeType.endsWith('/pdf') ||
-                mimeType === 'text/plain';
         };
 
         /**
