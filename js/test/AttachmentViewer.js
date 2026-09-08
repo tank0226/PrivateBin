@@ -38,7 +38,7 @@ describe('AttachmentViewer', function () {
                             mimePrefix === 'audio/' ||
                             mimePrefix === 'video/' ||
                             mimeType.match(/\/pdf/i)
-                        ),
+                        ) && mimeType.match(/^[a-z0-9][a-z0-9.-]*[a-z0-9]\/[a-z0-9][a-z0-9.+-]*[a-z0-9]$/),
                         results = [],
                         result = '';
                     // text node of attachment will truncate at null byte
@@ -279,16 +279,15 @@ describe('AttachmentViewer', function () {
     });
 
     function mockCreateObjectUrl(includeType = true) {
-        if (typeof window.URL.createObjectURL === 'undefined') {
-            Object.defineProperty(
-                window.URL,
-                'createObjectURL',
-                {
-                    value: function (blob) {
-                        return 'blob:' + (includeType ? blob.type : location.origin) + '/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed';;
-                    }
+        Object.defineProperty(
+            window.URL,
+            'createObjectURL',
+            {
+                configurable: true,
+                value: function (blob) {
+                    return 'blob:' + (includeType ? blob.type : location.origin) + '/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed';
                 }
-            );
-        }
+            }
+        );
     }
 });
