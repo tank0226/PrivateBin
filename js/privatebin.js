@@ -2917,7 +2917,7 @@ window.PrivateBin = (function () {
             // prevents executing embedded scripts when CSP is not set and user
             // right-clicks/long-taps and opens the SVG in a new tab - prevented
             // in the preview by use of an img tag, which disables scripts, too
-            if (mimeType.startsWith('image\/svg')) {
+            if (mimeType.startsWith('image/svg')) {
                 try {
                     // attempt to UTF-8 decode the SVG data
                     const svgBuffer = Uint8Array.from(
