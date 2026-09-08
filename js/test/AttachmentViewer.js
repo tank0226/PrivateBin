@@ -224,17 +224,17 @@ describe('AttachmentViewer', function () {
         );
 
         it(
-            'special case sanitizes potentially unsafe SVG previews',
+            'sanitize potentially unsafe SVG previews',
             function() {
                 document.body.innerHTML = bodyTemplate;
                 PrivateBin.AttachmentViewer.init();
                 PrivateBin.Model.init();
                 global.atob = common.atob;
 
-                // special case: not a safe type, but renders a sanitized preview
                 const svgMimeTypes = [
                     'image/svg+xml',
                     'image/SVG+xml',
+                    'image/SVG',
                     'image/sVg'
                 ];
                 for (const mimeType of svgMimeTypes) {
